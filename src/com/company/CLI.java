@@ -23,7 +23,7 @@ public class CLI {
 
     public static String printMenu() {
         String first = "Please select from the following:\n";
-        String second = "(1) View Inventory\n(2) Add Currency\n(3) Purchase An Item\n(4) Exit\n";
+        String second = "(1) View Inventory\n(2) Add Currency\n(3) Purchase An Item\n(4) Return Change\n(5) Exit\n";
         return first + second;
     }
 
@@ -50,15 +50,13 @@ public class CLI {
 
     public static String printPurchaseMenu(HashMap<String, VendingItem> items) {
         clearScreen();
-        System.out.println("Code:\tItem:\t\t\t\tPrice:\tQuantity:");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Code:\tItem:\t\t\t\tPrice:\tQuantity:");
         for (String itemCode : items.keySet()) {
-            System.out.println(items.get(itemCode));
+            sb.append(items.get(itemCode));
         }
-        System.out.println("\nPress (1) to continue...");
-        String finished = "no";
-        while (finished.equals("no")) {
-            finished = userInput.nextLine();
-        }
+        sb.append("\nEnter item code to purchase: ");
+        return getItemCode(sb.toString());
     }
 
     public static int getSelection(String prompt) {
@@ -89,7 +87,17 @@ public class CLI {
     }
 
     public static String getItemCode(String prompt) {
-
+        boolean hasSelection = false;
+        String itemCode = "";
+        while (!hasSelection) {
+            System.out.println(prompt);
+            itemCode = userInput.nextLine();
+            if (!itemCode.equals("")) {
+                hasSelection = true;
+            }
+            clearScreen();
+        }
+        return itemCode;
     }
 
     private static void clearScreen() {

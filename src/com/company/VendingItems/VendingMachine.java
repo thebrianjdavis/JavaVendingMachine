@@ -36,7 +36,23 @@ public class VendingMachine {
                 AddCash(cash);
                 break;
             case 3:
-
+                String itemCode = CLI.printPurchaseMenu(items);
+                if (items.containsKey(itemCode)) {
+                    VendingItem temp = items.get(itemCode);
+                    if (1 > temp.getQuantity()) {
+                        // print that item is out of stock
+                    }
+                    else if (temp.getPrice() > cashTendered) {
+                        // print insufficient funds
+                    }
+                    else {
+                        temp.vendItem();
+                        items.put(temp.getCode(), temp);
+                    }
+                }
+                else {
+                    // print incorrect itemCode message
+                }
                 break;
         }
     }

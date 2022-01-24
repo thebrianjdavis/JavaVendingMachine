@@ -13,6 +13,10 @@ public class VendingItem {
         this.quantity = quantity;
     }
 
+    public String getCode() {
+        return this.code;
+    }
+
     public double getPrice() {
         return this.price;
     }
