@@ -1,9 +1,5 @@
 package com.company;
 
-import com.company.VendingItems.Drink;
-import com.company.VendingItems.VendingItem;
-import com.company.VendingItems.VendingMachine;
-
 public class Main {
 
     public static void main(String[] args) {

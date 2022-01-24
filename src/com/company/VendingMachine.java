@@ -1,13 +1,15 @@
-package com.company.VendingItems;
+package com.company;
 
 import com.company.CLI;
 import com.company.FileReaderDAO;
+import com.company.VendingItems.VendingItem;
+
 import java.util.HashMap;
 
 public class VendingMachine {
 
     private HashMap<String, VendingItem> items;
-    private FileReaderDAO fileIn = new FileReaderDAO("Inventory.csv");
+    private final iFileReaderDAO fileIn = new FileReaderDAO("Inventory.csv");
     private double cashTendered;
 
     public void runMachine() {
@@ -28,32 +30,27 @@ public class VendingMachine {
 
     public void MainMenu(int selection) {
         switch (selection) {
-            case 1:
-                CLI.printInventory(items);
-                break;
-            case 2:
+            case 1 -> CLI.printInventory(items);
+            case 2 -> {
                 int cash = CLI.getSelection(CLI.printCashTenderMenu());
                 AddCash(cash);
-                break;
-            case 3:
+            }
+            case 3 -> {
                 String itemCode = CLI.printPurchaseMenu(items);
                 if (items.containsKey(itemCode)) {
                     VendingItem temp = items.get(itemCode);
                     if (1 > temp.getQuantity()) {
                         // print that item is out of stock
-                    }
-                    else if (temp.getPrice() > cashTendered) {
+                    } else if (temp.getPrice() > cashTendered) {
                         // print insufficient funds
-                    }
-                    else {
+                    } else {
                         temp.vendItem();
                         items.put(temp.getCode(), temp);
                     }
-                }
-                else {
+                } else {
                     // print incorrect itemCode message
                 }
-                break;
+            }
         }
     }
 

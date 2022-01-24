@@ -9,7 +9,7 @@ import com.company.VendingItems.VendingItem;
 import java.nio.file.Path;
 import java.util.*;
 
-public class FileReaderDAO {
+public class FileReaderDAO implements iFileReaderDAO {
 
     private final Path filePath;
 
