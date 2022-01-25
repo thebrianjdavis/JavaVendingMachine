@@ -1,7 +1,5 @@
 package com.company;
 
-import com.company.CLI;
-import com.company.FileReaderDAO;
 import com.company.VendingItems.VendingItem;
 
 import java.util.HashMap;
@@ -18,8 +16,9 @@ public class VendingMachine {
         boolean isRunning = true;
 
         while (isRunning) {
+            CLI.printCashTendered(cashTendered);
             int selection = CLI.getSelection(CLI.printMenu());
-            if (selection == 4) {
+            if (selection == 5) {
                 isRunning = false;
             }
             else {
@@ -30,7 +29,9 @@ public class VendingMachine {
 
     public void MainMenu(int selection) {
         switch (selection) {
-            case 1 -> CLI.printInventory(items);
+            case 1 -> {
+                CLI.printInventory(items);
+            }
             case 2 -> {
                 int cash = CLI.getSelection(CLI.printCashTenderMenu());
                 AddCash(cash);
@@ -40,16 +41,21 @@ public class VendingMachine {
                 if (items.containsKey(itemCode)) {
                     VendingItem temp = items.get(itemCode);
                     if (1 > temp.getQuantity()) {
-                        // print that item is out of stock
+                        CLI.printMessage("Item is currently out of stock!");
                     } else if (temp.getPrice() > cashTendered) {
-                        // print insufficient funds
+                        CLI.printMessage("Insufficient funds! Enter more cash to purchase " + temp.getName());
                     } else {
-                        temp.vendItem();
+                        this.cashTendered -= temp.getPrice();
+                        String message = temp.vendItem();
+                        CLI.printMessage(message);
                         items.put(temp.getCode(), temp);
                     }
                 } else {
-                    // print incorrect itemCode message
+                    CLI.printMessage("Item code not recognized!");
                 }
+            }
+            case 4 -> {
+                // return change
             }
         }
     }
@@ -62,5 +68,22 @@ public class VendingMachine {
             case 4 -> cashTendered += 20;
             default -> cashTendered += 0;
         }
+    }
+
+    private void MakeChange() {
+        double change = this.cashTendered;
+        int dollars = 0;
+        int quarters = 0;
+        int dimes = 0;
+        int nickels = 0;
+        if (change > 1) {
+            dollars = (int)change;
+            change -= dollars;
+        }
+        if (change > .25) {
+            // figure this out
+        }
+        // CLI.printChange(int dollars, int quarters, int dimes, int nickels);
+        this.cashTendered = 0;
     }
 }

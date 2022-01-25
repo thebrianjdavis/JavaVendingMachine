@@ -40,6 +40,25 @@ public class CLI {
         }
     }
 
+    public static void printCashTendered(double cash) {
+        clearScreen();
+        String first = "Cash Tendered: ";
+        String second = "$" + String.format("%.2f", cash);
+        System.out.println(first + second);
+    }
+
+    public static void printMessage(String message) {
+        clearScreen();
+        System.out.println(message);
+        try{
+            Thread.sleep(3000);
+        }
+        catch (Exception i) {
+            System.err.println("### COMMAND FAILED: RESET MACHINE ###");
+        }
+        clearScreen();
+    }
+
     public static String printCashTenderMenu() {
         clearScreen();
         String first = "Please insert cash below:\n\n";
@@ -51,9 +70,10 @@ public class CLI {
     public static String printPurchaseMenu(HashMap<String, VendingItem> items) {
         clearScreen();
         StringBuilder sb = new StringBuilder();
-        sb.append("Code:\tItem:\t\t\t\tPrice:\tQuantity:");
+        sb.append("Code:\tItem:\t\t\t\tPrice:\tQuantity:\n");
         for (String itemCode : items.keySet()) {
             sb.append(items.get(itemCode));
+            sb.append("\n");
         }
         sb.append("\nEnter item code to purchase: ");
         return getItemCode(sb.toString());
@@ -63,12 +83,11 @@ public class CLI {
         boolean hasSelection = false;
         int selection = -1;
         while (!hasSelection) {
-            clearScreen();
             System.out.println(prompt);
             String word = userInput.nextLine();
             try {
                 selection = Integer.parseInt(word);
-                if (6 > selection || -1 < selection) {
+                if (6 > selection && -1 < selection) {
                     hasSelection = true;
                     clearScreen();
                 }
@@ -79,7 +98,7 @@ public class CLI {
                     clearScreen();
                 }
             }
-            catch (Exception e) {
+            catch (Exception ignored) {
 
             }
         }
@@ -101,7 +120,7 @@ public class CLI {
     }
 
     private static void clearScreen() {
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 25; i++) {
             System.out.println("\n ");
         }
     }

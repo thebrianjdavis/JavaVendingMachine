@@ -17,6 +17,10 @@ public class VendingItem {
         return this.code;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public double getPrice() {
         return this.price;
     }
@@ -28,12 +32,13 @@ public class VendingItem {
     public String toString() {
         StringBuilder output = new StringBuilder();
         output.append(code + "   \t");
-        if (18 > name.length()) {
-            while (18 > name.length()) {
-                name += " ";
+        String tempName = this.name;
+        if (18 > tempName.length()) {
+            while (18 > tempName.length()) {
+                tempName += " ";
             }
         }
-        output.append(name + "\t");
+        output.append(tempName + "\t");
         output.append("$" + String.format("%.2f", price) + "\t");
         output.append(quantity);
         return output.toString();
