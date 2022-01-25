@@ -31,17 +31,21 @@ public class FileReaderDAO implements iFileReaderDAO {
                 int quantity = 5;
                 switch(line[3]) {
                     case "Candy":
-                        VendingItem tempA = new Candy(code, name, price, quantity);
+                        Candy tempA = new Candy(code, name, price, quantity);
                         inventory.put(code, tempA);
-                    case "Chips":
-                        VendingItem tempB = new Chips(code, name, price, quantity);
+                        break;
+                    case "Chip":
+                        Chips tempB = new Chips(code, name, price, quantity);
                         inventory.put(code, tempB);
+                        break;
                     case "Drink":
-                        VendingItem tempC = new Drink(code, name, price, quantity);
+                        Drink tempC = new Drink(code, name, price, quantity);
                         inventory.put(code, tempC);
+                        break;
                     case "Gum":
-                        VendingItem tempD = new Gum(code, name, price, quantity);
+                        Gum tempD = new Gum(code, name, price, quantity);
                         inventory.put(code, tempD);
+                        break;
                     default:
                         VendingItem tempE = new VendingItem(code, name, price, quantity);
                         inventory.put(code, tempE);

@@ -79,6 +79,24 @@ public class CLI {
         return getItemCode(sb.toString());
     }
 
+    public static void printChange(double total, int tens, int fives, int dollars, int quarters, int dimes, int nickels) {
+        clearScreen();
+        System.out.println(tens + " tens dispensed");
+        System.out.println(fives + " fives dispensed");
+        System.out.println(dollars + " dollars dispensed");
+        System.out.println(quarters + " quarters dispensed");
+        System.out.println(dimes + " dimes dispensed");
+        System.out.println(nickels + " nickels dispensed");
+        System.out.println("$" + total + " total change dispensed");
+        try {
+            Thread.sleep(5000);
+        }
+        catch (Exception ignored) {
+
+        }
+        clearScreen();
+    }
+
     public static int getSelection(String prompt) {
         boolean hasSelection = false;
         int selection = -1;

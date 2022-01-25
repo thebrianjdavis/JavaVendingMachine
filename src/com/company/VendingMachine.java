@@ -55,7 +55,7 @@ public class VendingMachine {
                 }
             }
             case 4 -> {
-                // return change
+                MakeChange();
             }
         }
     }
@@ -71,19 +71,38 @@ public class VendingMachine {
     }
 
     private void MakeChange() {
-        double change = this.cashTendered;
+        double change = Math.round(this.cashTendered*100.0)/100.0;
+        int tens = 0;
+        int fives = 0;
         int dollars = 0;
         int quarters = 0;
         int dimes = 0;
         int nickels = 0;
-        if (change > 1) {
-            dollars = (int)change;
-            change -= dollars;
+        while (change >= 10) {
+            tens++;
+            change -= 10;
         }
-        if (change > .25) {
-            // figure this out
+        while (change >= 5) {
+            fives++;
+            change -= 5;
         }
-        // CLI.printChange(int dollars, int quarters, int dimes, int nickels);
-        this.cashTendered = 0;
+        while (change >= 1) {
+            dollars++;
+            change -= 1;
+        }
+        while (change >= 0.25) {
+            quarters++;
+            change -= 0.25;
+        }
+        while (change >= 0.10) {
+            dimes++;
+            change -= 0.10;
+        }
+        while (change >= 0.05) {
+            nickels++;
+            change -= 0.05;
+        }
+        CLI.printChange(this.cashTendered, tens, fives, dollars, quarters, dimes, nickels);
+        this.cashTendered = change;
     }
 }
