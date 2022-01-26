@@ -83,15 +83,21 @@ public class CLI {
     public static void printChange(int total, int tens, int fives, int dollars, int quarters, int dimes, int nickels) {
         clearScreen();
         double dubTotal = (double)total/100;
-        System.out.println(tens + " tens dispensed");
-        System.out.println(fives + " fives dispensed");
-        System.out.println(dollars + " dollars dispensed");
-        System.out.println(quarters + " quarters dispensed");
-        System.out.println(dimes + " dimes dispensed");
-        System.out.println(nickels + " nickels dispensed");
+        String ten = (tens != 1) ? " tens" : " ten";
+        String five = (fives != 1) ? " fives" : " five";
+        String dollar = (dollars != 1) ? " dollars" : " dollar";
+        String quarter = (quarters != 1) ? " quarters" : " quarter";
+        String dime = (dimes != 1) ? " dimes" : " dime";
+        String nickel = (nickels != 1) ? " nickels" : " nickel";
+        System.out.println(tens + ten  + " dispensed");
+        System.out.println(fives + five + " dispensed");
+        System.out.println(dollars + dollar + " dispensed");
+        System.out.println(quarters + quarter + " dispensed");
+        System.out.println(dimes + dime + " dispensed");
+        System.out.println(nickels + nickel + " dispensed");
         System.out.println("$" + String.format("%.2f", dubTotal) + " total change dispensed");
         try {
-            Thread.sleep(5000);
+            Thread.sleep(7000);
         }
         catch (Exception ignored) {
 
