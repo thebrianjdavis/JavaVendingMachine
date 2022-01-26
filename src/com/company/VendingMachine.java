@@ -7,8 +7,12 @@ import java.util.HashMap;
 public class VendingMachine {
 
     private HashMap<String, VendingItem> items;
-    private final iFileReaderDAO fileIn = new FileReaderDAO("Inventory.csv");
-    private double cashTendered;
+    private final iFileReaderDAO fileIn;
+    private int cashTendered;
+
+    public VendingMachine(FileReaderDAO dao) {
+        this.fileIn = dao;
+    }
 
     public void runMachine() {
         items = fileIn.getInventory();
@@ -42,10 +46,10 @@ public class VendingMachine {
                     VendingItem temp = items.get(itemCode);
                     if (1 > temp.getQuantity()) {
                         CLI.printMessage("Item is currently out of stock!");
-                    } else if (temp.getPrice() > cashTendered) {
+                    } else if (temp.getPrice() > (double)cashTendered / 100) {
                         CLI.printMessage("Insufficient funds! Enter more cash to purchase " + temp.getName());
                     } else {
-                        this.cashTendered -= temp.getPrice();
+                        this.cashTendered -= temp.getPrice() * 100;
                         String message = temp.vendItem();
                         CLI.printMessage(message);
                         items.put(temp.getCode(), temp);
@@ -62,45 +66,45 @@ public class VendingMachine {
 
     private void AddCash(int selection) {
         switch (selection) {
-            case 1 -> cashTendered += 1;
-            case 2 -> cashTendered += 5;
-            case 3 -> cashTendered += 10;
-            case 4 -> cashTendered += 20;
+            case 1 -> cashTendered += 100;
+            case 2 -> cashTendered += 500;
+            case 3 -> cashTendered += 1000;
+            case 4 -> cashTendered += 2000;
             default -> cashTendered += 0;
         }
     }
 
     private void MakeChange() {
-        double change = Math.round(this.cashTendered*100.0)/100.0;
+        int change = this.cashTendered;
         int tens = 0;
         int fives = 0;
         int dollars = 0;
         int quarters = 0;
         int dimes = 0;
         int nickels = 0;
-        while (change >= 10) {
+        while (change >= 1000) {
             tens++;
+            change -= 1000;
+        }
+        while (change >= 500) {
+            fives++;
+            change -= 500;
+        }
+        while (change >= 100) {
+            dollars++;
+            change -= 100;
+        }
+        while (change >= 25) {
+            quarters++;
+            change -= 25;
+        }
+        while (change >= 10) {
+            dimes++;
             change -= 10;
         }
         while (change >= 5) {
-            fives++;
-            change -= 5;
-        }
-        while (change >= 1) {
-            dollars++;
-            change -= 1;
-        }
-        while (change >= 0.25) {
-            quarters++;
-            change -= 0.25;
-        }
-        while (change >= 0.10) {
-            dimes++;
-            change -= 0.10;
-        }
-        while (change >= 0.05) {
             nickels++;
-            change -= 0.05;
+            change -= 5;
         }
         CLI.printChange(this.cashTendered, tens, fives, dollars, quarters, dimes, nickels);
         this.cashTendered = change;

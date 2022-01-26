@@ -15,7 +15,8 @@ public class Main {
         // Write session to sales report - cli (hidden function)/FileWriteDAO
         // Reset Inventory - cli (hidden function)/FileWriteDAO
 
-        VendingMachine vm = new VendingMachine();
+        iFileReaderDAO fileReaderDAO = new FileReaderDAO("inventory.csv");
+        VendingMachine vm = new VendingMachine((FileReaderDAO) fileReaderDAO);
         vm.runMachine();
     }
 }

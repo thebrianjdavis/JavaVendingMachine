@@ -40,8 +40,9 @@ public class CLI {
         }
     }
 
-    public static void printCashTendered(double cash) {
+    public static void printCashTendered(int cashTendered) {
         clearScreen();
+        double cash = (double)cashTendered / 100;
         String first = "Cash Tendered: ";
         String second = "$" + String.format("%.2f", cash);
         System.out.println(first + second);
@@ -79,15 +80,16 @@ public class CLI {
         return getItemCode(sb.toString());
     }
 
-    public static void printChange(double total, int tens, int fives, int dollars, int quarters, int dimes, int nickels) {
+    public static void printChange(int total, int tens, int fives, int dollars, int quarters, int dimes, int nickels) {
         clearScreen();
+        double dubTotal = (double)total/100;
         System.out.println(tens + " tens dispensed");
         System.out.println(fives + " fives dispensed");
         System.out.println(dollars + " dollars dispensed");
         System.out.println(quarters + " quarters dispensed");
         System.out.println(dimes + " dimes dispensed");
         System.out.println(nickels + " nickels dispensed");
-        System.out.println("$" + total + " total change dispensed");
+        System.out.println("$" + String.format("%.2f", dubTotal) + " total change dispensed");
         try {
             Thread.sleep(5000);
         }
@@ -128,7 +130,7 @@ public class CLI {
         String itemCode = "";
         while (!hasSelection) {
             System.out.println(prompt);
-            itemCode = userInput.nextLine();
+            itemCode = userInput.nextLine().toUpperCase();
             if (!itemCode.equals("")) {
                 hasSelection = true;
             }
