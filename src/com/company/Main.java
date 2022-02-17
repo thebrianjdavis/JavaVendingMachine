@@ -10,8 +10,8 @@ public class Main {
         // Configuration to set dependencies:
         String fileName = "Inventory.csv";
         iFileReaderDAO fileReaderDAO = new FileReaderDAO(fileName);
-//        String connectionString = null;
-//        iFileReaderDAO fileReaderDAO = new DatabaseDAO(connectionString);
+        // String connectionString = null;
+        // iFileReaderDAO fileReaderDAO = new DatabaseDAO(connectionString);
 
         // Creates and runs vending machine:
         VendingMachine vm = new VendingMachine((FileReaderDAO) fileReaderDAO);

@@ -1,5 +1,6 @@
 package com.company.VendingItems;
 
+// Superclass for the four vending item types
 public class VendingItem {
     private String code;
     private String name;
@@ -31,15 +32,15 @@ public class VendingItem {
 
     public String toString() {
         StringBuilder output = new StringBuilder();
-        output.append(code + "   \t");
-        String tempName = this.name;
+        output.append(code).append("   \t");
+        StringBuilder tempName = new StringBuilder(this.name);
         if (18 > tempName.length()) {
             while (18 > tempName.length()) {
-                tempName += " ";
+                tempName.append(" ");
             }
         }
-        output.append(tempName + "\t");
-        output.append("$" + String.format("%.2f", price) + "\t");
+        output.append(tempName).append("\t");
+        output.append("$").append(String.format("%.2f", price)).append("\t");
         output.append(quantity);
         return output.toString();
     }

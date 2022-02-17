@@ -9,10 +9,16 @@ public class CLI {
 
     public static Scanner userInput = new Scanner(System.in);
 
+    // sleepTime can be changed to lengthen or shorten the amount of time
+    // messages are displayed to the terminal
+    private static final long sleepTime = 4000;
+
+    // All "print" methods are to print feedback to terminal for the user
+    // All "get" methods are to capture user selections for each menu
     public static void printWelcome() {
         System.out.println("Welcome to Java Vending Machine!");
         try {
-            Thread.sleep(4000);
+            Thread.sleep(sleepTime);
             clearScreen();
         }
         catch (Exception e) {
@@ -52,7 +58,7 @@ public class CLI {
         clearScreen();
         System.out.println(message);
         try{
-            Thread.sleep(3000);
+            Thread.sleep(sleepTime);
         }
         catch (Exception i) {
             System.err.println("### COMMAND FAILED: RESET MACHINE ###");
@@ -97,7 +103,8 @@ public class CLI {
         System.out.println(nickels + nickel + " dispensed");
         System.out.println("$" + String.format("%.2f", dubTotal) + " total change dispensed");
         try {
-            Thread.sleep(7000);
+            Thread.sleep(sleepTime);
+            Thread.sleep(sleepTime);
         }
         catch (Exception ignored) {
 
@@ -120,7 +127,7 @@ public class CLI {
                 else {
                     clearScreen();
                     System.out.println("Invalid input! Please select again!");
-                    Thread.sleep(3000);
+                    Thread.sleep(sleepTime);
                     clearScreen();
                 }
             }

@@ -11,12 +11,14 @@ import java.util.*;
 
 public class FileReaderDAO implements iFileReaderDAO {
 
+    // filePath set and passed in from configuration in Main
     private final Path filePath;
 
     public FileReaderDAO(String fileName) {
         this.filePath = Path.of(fileName);
     }
 
+    // getInventory method reads in from CSV and creates HashMap of items
     public HashMap<String, VendingItem> getInventory() {
         HashMap<String, VendingItem> inventory = new HashMap<>();
         HashMap<String, VendingItem> items = new LinkedHashMap<>();
@@ -29,38 +31,40 @@ public class FileReaderDAO implements iFileReaderDAO {
                 String name = line[1];
                 double price = Double.parseDouble(line[2]);
                 int quantity = 5;
-                switch(line[3]) {
-                    case "Candy":
+                switch (line[3]) {
+                    case "Candy" -> {
                         Candy tempA = new Candy(code, name, price, quantity);
                         inventory.put(code, tempA);
-                        break;
-                    case "Chip":
+                    }
+                    case "Chip" -> {
                         Chips tempB = new Chips(code, name, price, quantity);
                         inventory.put(code, tempB);
-                        break;
-                    case "Drink":
+                    }
+                    case "Drink" -> {
                         Drink tempC = new Drink(code, name, price, quantity);
                         inventory.put(code, tempC);
-                        break;
-                    case "Gum":
+                    }
+                    case "Gum" -> {
                         Gum tempD = new Gum(code, name, price, quantity);
                         inventory.put(code, tempD);
-                        break;
-                    default:
+                    }
+                    default -> {
                         VendingItem tempE = new VendingItem(code, name, price, quantity);
                         inventory.put(code, tempE);
+                    }
                 }
             }
             items = sortList(inventory);
         }
         catch (Exception e) {
             System.err.println("### ERROR READING .CSV FILE ###");
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
 
         return items;
     }
 
+    // sortList is a helper method to sort the read-in items to a LinkedHashMap
     private HashMap<String, VendingItem> sortList(HashMap<String, VendingItem> inventory) {
 
         HashMap<String, VendingItem> items = new LinkedHashMap<>();
